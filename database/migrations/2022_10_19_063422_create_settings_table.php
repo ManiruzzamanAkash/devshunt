@@ -13,19 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('website_name');
+            $table->string('logo')->nullable();
             $table->string('phone_no')->nullable();
+            $table->string('email')->nullable();
+            $table->string('open_close_time')->nullable();
             $table->string('address')->nullable();
-            $table->string('city')->nullable();
-            $table->string('state')->nullable();
-            $table->string('date_of_birth')->nullable();
-            $table->enum('gender', ['male', 'female', 'others'])->nullable();
-            $table->rememberToken();
+            $table->text('footer_text')->nullable();
+            $table->text('labels')->nullable();
+            $table->text('options')->nullable();
             $table->timestamps();
         });
     }
@@ -37,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('settings');
     }
 };
