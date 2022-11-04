@@ -7,3 +7,7 @@
 
 <!-- Custom styles for this template-->
 <link href="{{ asset('backend/css/sb-admin-2.min.css') }}" rel="stylesheet">
+
+{{-- Datatable CSS --}}
+<link href="{{ asset('vendors/data-table/datatables.min.css') }}" rel="stylesheet">
+<link href="{{ asset('vendors/data-table/dataTables.bootstrap4.min.css') }}" rel="stylesheet">

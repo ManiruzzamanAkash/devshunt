@@ -11,9 +11,4 @@ class DashboardController extends Controller
     {
         return view('backend.pages.index');
     }
-
-    public function categories()
-    {
-        return view('backend.pages.category.index');
-    }
 }

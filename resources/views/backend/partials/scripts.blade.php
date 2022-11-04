@@ -10,3 +10,7 @@
 
 <!-- Page level plugins -->
 <script src="{{ asset('vendors/chart.js/Chart.min.js') }}"></script>
+
+{{-- Data table --}}
+<script src="{{ asset('vendors/data-table/datatables.min.js') }}"></script>
+<script src="{{ asset('vendors/data-table/dataTables.bootstrap4.min.js') }}"></script>
