@@ -2,15 +2,24 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Str;
 use App\Interfaces\CrudInterface;
 use App\Interfaces\SlugInterface;
 use App\Models\Category;
 
 class CategoryRepository implements CrudInterface, SlugInterface
 {
-    public function get(): \Illuminate\Database\Eloquent\Collection
+    public function get(array $args = []): \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Builder
     {
-        return Category::get();
+        $orderBy = empty($args['order_by']) ? 'id' : $args['order_by']; // column name
+        $order   = empty($args['order']) ? 'desc' : $args['order']; // asc, desc
+        $query   = Category::orderBy($orderBy, $order);
+
+        if (isset($args['is_query']) && $args['is_query']) {
+            return $query;
+        }
+
+        return $query->get();
     }
 
     public function show(int $id): Category|null
@@ -26,6 +35,10 @@ class CategoryRepository implements CrudInterface, SlugInterface
     public function create(array $data): Category|null
     {
         // Create
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($data['name']);
+        }
+
         return Category::create($data);
 
         // Find the data and return

@@ -46,6 +46,7 @@
                         @yield('page-right-side')
                     </div>
 
+                    @include('backend.partials.messages')
                     @yield('admin-content')
 
                 </div>

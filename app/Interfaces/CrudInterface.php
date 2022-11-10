@@ -7,9 +7,11 @@ interface CrudInterface
     /**
      * Get eloquent model resource.
      *
+     * @param array $args
+     *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function get(): \Illuminate\Database\Eloquent\Collection;
+    public function get(array $args = []): \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Builder;
 
     /**
      * Show eloquent model resource.

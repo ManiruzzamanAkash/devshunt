@@ -9,6 +9,16 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'slug',
+        'logo',
+        'priority',
+        'enable_homepage',
+        'description',
+        'parent_id',
+    ];
+
     public function parent_categories()
     {
         return $this->belongsToMany('parent_id', 'categories', 'id');

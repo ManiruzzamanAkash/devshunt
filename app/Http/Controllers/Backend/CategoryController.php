@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\DataTables\CategoryDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryCreateRequest;
 use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
 
@@ -31,7 +32,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.pages.category.create');
     }
 
     /**
@@ -40,9 +41,16 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryCreateRequest $request)
     {
-        //
+        $category = $this->categoryRepository->create($request->all());
+
+        if (!empty($category)) {
+            session()->flash('success', 'Category created successfully.');
+            return redirect()->route('admin.categories.index');
+        }
+
+        session()->flash('error', 'Something went wrong to create a category.');
     }
 
     /**
