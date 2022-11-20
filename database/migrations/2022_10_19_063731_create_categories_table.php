@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('logo')->nullable();
+            $table->string('bg_color', 7)->nullable();
             $table->unsignedInteger('priority')->default(10);
             $table->boolean('enable_homepage')->default(true);
             $table->text('description')->nullable();

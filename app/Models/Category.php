@@ -13,6 +13,7 @@ class Category extends Model
         'name',
         'slug',
         'logo',
+        'bg_color',
         'priority',
         'enable_homepage',
         'description',

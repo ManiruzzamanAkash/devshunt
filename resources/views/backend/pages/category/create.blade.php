@@ -28,13 +28,19 @@
                     <input type="text" class="form-control" name="name" id="name"
                         placeholder="Enter category name" required>
                 </div>
-                <div class="col-12 col-md-6 mb-3">
+                <div class="col-12 col-md-3 mb-3">
                     <label for="parent_id" class="form-label">
                         Parent Category <span class="text-info">(optional)</span>
                     </label>
                     <select name="parent_id" id="parent_id" class="form-control">
                         {!! $parentCategories !!}
                     </select>
+                </div>
+                <div class="col-12 col-md-3 mb-3">
+                    <label for="bg_color" class="form-label">
+                        Bg Color <span class="text-info">(optional)</span>
+                    </label>
+                    <input type="color" name="bg_color" class="form-control" />
                 </div>
                 <div class="col-12 col-md-6 mb-3">
                     <label for="logo" class="form-label">

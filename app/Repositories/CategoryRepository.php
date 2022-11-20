@@ -6,6 +6,8 @@ use App\Interfaces\CrudInterface;
 use App\Interfaces\SlugInterface;
 use App\Models\Category;
 use Akash\LaravelUniqueSlug\Facades\UniqueSlug;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryRepository implements CrudInterface, SlugInterface
@@ -68,19 +70,20 @@ class CategoryRepository implements CrudInterface, SlugInterface
 
     public function printCategory(?int $categoryId = null): string
     {
-        $html = '';
-        $parentCategories = $this->getParentCategories();
+        $categories = $this->categoryLists();
+        return $this->selectOptionsCategory($categories, $categoryId);
+    }
 
-        foreach ($parentCategories as $parent) {
+    public function selectOptionsCategory(Collection $categories, ?int $categoryId = null): string
+    {
+        $html = '';
+        foreach ($categories as $parent) {
             $selected = $parent->id === $categoryId ? 'selected' : '';
             $html .= '<option ' . $selected . ' value="' . $parent->id . '">' . $parent->name . '</option>';
-            $child1Categories = $this->getParentCategories($parent->id);
-            foreach ($child1Categories as $child1) {
+            foreach ($parent->child as $child1) {
                 $selected = $child1->id === $categoryId ? 'selected' : '';
                 $html .= '<option ' . $selected . ' value="' . $child1->id . '" > ---- ' . $child1->name . '</option>';
-
-                $child2Categories = $this->getParentCategories($child1->id);
-                foreach ($child2Categories as $child2) {
+                foreach ($child1->child as $child2) {
                     $selected = $child2->id === $categoryId ? 'selected' : '';
                     $html .= '<option ' . $selected . ' value="' . $child2->id . '">&nbsp;&nbsp;&nbsp;&nbsp; ---- ' . $child2->name . '</option>';
                 }
@@ -90,9 +93,25 @@ class CategoryRepository implements CrudInterface, SlugInterface
         return $html;
     }
 
+    public function categoryLists()
+    {
+        $categories = $this->getParentCategories(null);
+
+        foreach ($categories as $parent) {
+            $child1Categories = $this->getParentCategories($parent->id);
+            $parent->child = $child1Categories;
+            foreach ($child1Categories as $child1) {
+                $child2Categories = $this->getParentCategories($child1->id);
+                $child1->child = $child2Categories;
+            }
+        }
+
+        return $categories;
+    }
+
     private function getParentCategories(?int $parentId = null)
     {
-        return Category::select('id', 'name')
+        return Category::select('id', 'name', 'slug', 'logo', 'priority', 'enable_homepage')
             ->where('parent_id', $parentId)
             ->get();
     }
@@ -129,5 +148,20 @@ class CategoryRepository implements CrudInterface, SlugInterface
         }
 
         $data['enable_homepage'] = isset($data['enable_homepage']) ? 1 : 0;
+    }
+
+    public function getHomepageCategories(?int $limit = 20)
+    {
+        return Category::join('courses', 'courses.category_id', 'categories.id')
+            ->select(
+                'categories.id',
+                'categories.name',
+                'categories.logo',
+                'categories.slug',
+                'categories.bg_color',
+                DB::raw('(SELECT COUNT(courses.id) FROM courses WHERE courses.category_id = categories.id) as total_course')
+            )
+            ->groupBy('categories.id')
+            ->paginate($limit);
     }
 }
