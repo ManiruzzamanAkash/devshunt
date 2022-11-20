@@ -26,11 +26,11 @@
         Modules
     </div>
 
-    <!-- Nav Item - Pages Collapse Menu -->
+    <!-- Nav Item - Category -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategory"
             aria-expanded="true" aria-controls="collapseCategory">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-fw fa-th"></i>
             <span>Category</span>
         </a>
         <div id="collapseCategory" class="collapse {{ (Route::is('admin.categories.index') || Route::is('admin.categories.create') || Route::is('admin.categories.edit')) ? 'show' : '' }}" aria-labelledby="collapseCategory" data-parent="#accordionSidebar">
@@ -40,6 +40,22 @@
             </div>
         </div>
     </li>
+
+    <!-- Nav Item - Page -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePage"
+            aria-expanded="true" aria-controls="collapsePage">
+            <i class="fas fa-fw fa-file"></i>
+            <span>Page</span>
+        </a>
+        <div id="collapsePage" class="collapse {{ (Route::is('admin.pages.index') || Route::is('admin.pages.create') || Route::is('admin.pages.edit')) ? 'show' : '' }}" aria-labelledby="collapseCategory" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item {{ (Route::is('admin.pages.index') || Route::is('admin.pages.edit')) ? 'active' : '' }}" href="{{ route('admin.pages.index') }}">Manage pages</a>
+                <a class="collapse-item {{ Route::is('admin.pages.create') ? 'active' : '' }}" href="{{ route('admin.pages.create') }}">New Page</a>
+            </div>
+        </div>
+    </li>
+
 
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
