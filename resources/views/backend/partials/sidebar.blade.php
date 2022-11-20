@@ -33,10 +33,10 @@
             <i class="fas fa-fw fa-cog"></i>
             <span>Category</span>
         </a>
-        <div id="collapseCategory" class="collapse" aria-labelledby="collapseCategory" data-parent="#accordionSidebar">
+        <div id="collapseCategory" class="collapse {{ (Route::is('admin.categories.index') || Route::is('admin.categories.create') || Route::is('admin.categories.edit')) ? 'show' : '' }}" aria-labelledby="collapseCategory" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('admin.categories.create') }}">New Category</a>
-                <a class="collapse-item" href="{{ route('admin.categories.index') }}">Category</a>
+                <a class="collapse-item {{ (Route::is('admin.categories.index') || Route::is('admin.categories.edit')) ? 'active' : '' }}" href="{{ route('admin.categories.index') }}">Manage Categories</a>
+                <a class="collapse-item {{ Route::is('admin.categories.create') ? 'active' : '' }}" href="{{ route('admin.categories.create') }}">New Category</a>
             </div>
         </div>
     </li>

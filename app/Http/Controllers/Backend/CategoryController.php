@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Backend;
 use App\DataTables\CategoryDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryCreateRequest;
+use App\Models\Category;
 use App\Repositories\CategoryRepository;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\Support\Renderable;
 
 class CategoryController extends Controller
 {
@@ -28,11 +29,13 @@ class CategoryController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Renderable
      */
-    public function create()
+    public function create(): Renderable
     {
-        return view('backend.pages.category.create');
+        return view('backend.pages.category.create', [
+            'parentCategories' => $this->categoryRepository->printCategory()
+        ]);
     }
 
     /**
@@ -62,41 +65,54 @@ class CategoryController extends Controller
     public function show(int $id)
     {
         $category = $this->categoryRepository->show($id);
-
-        dd($category);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Category $category
+     * @return Renderable
      */
-    public function edit($id)
+    public function edit(Category $category): Renderable
     {
-        //
+        return view('backend.pages.category.edit', [
+            'category' => $category,
+            'parentCategories' => $this->categoryRepository->printCategory($category->parent_id)
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryCreateRequest $request, Category $category)
     {
-        //
+        $categoryUpdated = $this->categoryRepository->update($request->except('_token', '_method'), $category->id);
+
+        if (!empty($categoryUpdated)) {
+            session()->flash('success', 'Category updated successfully.');
+            return redirect()->route('admin.categories.index');
+        }
+
+        session()->flash('error', 'Something went wrong to update the category.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        if ($this->categoryRepository->delete($category)) {
+            session()->flash('success', 'Category deleted successfully.');
+            return redirect()->route('admin.categories.index');
+        }
+
+        session()->flash('error', 'Something went wrong to update the category.');
     }
 }

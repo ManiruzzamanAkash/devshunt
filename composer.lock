@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cf43c4f486364a422ff19ba8064bf769",
+    "content-hash": "dc3b2cf1e11abe63c1895b9b02bf5a82",
     "packages": [
         {
             "name": "brick/math",
@@ -1752,6 +1752,62 @@
                 }
             ],
             "time": "2022-04-17T13:12:02+00:00"
+        },
+        {
+            "name": "maniruzzaman/laravel-unique-slug",
+            "version": "v0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ManiruzzamanAkash/laravel-unique-slug-generator.git",
+                "reference": "86f1e38b69e58075a53c3bdd5aed09083c9993e9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ManiruzzamanAkash/laravel-unique-slug-generator/zipball/86f1e38b69e58075a53c3bdd5aed09083c9993e9",
+                "reference": "86f1e38b69e58075a53c3bdd5aed09083c9993e9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Akash\\LaravelUniqueSlug\\UniqueSlugServiceProvider"
+                    ],
+                    "aliases": {
+                        "UniqueSlug": "Akash\\LaravelUniqueSlug\\UniqueSlug"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Akash\\LaravelUniqueSlug\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ManiruzzamanAkash",
+                    "email": "manirujjamanakash@gmail.com"
+                }
+            ],
+            "description": "A simple but beautiful unique slug generator for Laravel eloquent model.",
+            "homepage": "https://github.com/ManiruzzamanAkash/laravel-unique-slug-generator",
+            "keywords": [
+                "laravel",
+                "laravel-unique-slug",
+                "laravel_unique_slug"
+            ],
+            "support": {
+                "issues": "https://github.com/ManiruzzamanAkash/laravel-unique-slug-generator/issues",
+                "source": "https://github.com/ManiruzzamanAkash/laravel-unique-slug-generator/tree/v0.2.0"
+            },
+            "time": "2022-11-16T02:42:59+00:00"
         },
         {
             "name": "monolog/monolog",

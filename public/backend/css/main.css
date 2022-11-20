@@ -1,0 +1,15 @@
+/* CSS file */
+
+/* header */
+
+/* Content */
+.breadcrumb {
+    background-color: transparent;
+}
+
+/* footer */
+
+/* External library overrides */
+.ck.ck-content.ck-editor__editable {
+  min-height: 150px;
+}
