@@ -59,16 +59,18 @@
             <div class="flex flex-row gap-2 items-center text-center flex-wrap pl-4 md:pl-0">
                 @foreach ($homepageCategories as $homeCategory)
                     <div
-                        class="transition basis-[45%] md:basis-[10.93%] bg-[{{ $homeCategory->bg_color }}] cursor-pointer rounded mr-3 p-5 hover:opacity-75 group hover:-translate-y-2">
-                        <div class="bg-white rounded-full m-0 mx-auto w-20 h-20 p-2.5 scale-90 group-hover:scale-125">
-                            <img src="{{ Storage::url($homeCategory->logo) }}" alt="" class="w-16 h-16">
+                        class="transition basis-[45%] md:basis-[11.7%] cursor-pointer rounded hover:opacity-75 group hover:-translate-y-2 min-h-[210px]" style="background:{{ $homeCategory->bg_color }}">
+                        <div class="mr-3 p-5">
+                            <div class="bg-white rounded-full m-0 mx-auto w-20 h-20 p-2.5 scale-90 group-hover:scale-125">
+                                <img src="{{ Storage::url($homeCategory->logo) }}" alt="" class="w-16 h-16">
+                            </div>
+                            <h4 class="mt-4 mb-2 font-medium overflow-hidden h-[50px]">
+                                {{ $homeCategory->name }}
+                            </h4>
+                            <p class="text-gray-500 text-xs">
+                                {{ $homeCategory->total_course }} Courses
+                            </p>
                         </div>
-                        <h4 class="mt-4 mb-2 font-medium">
-                            {{ $homeCategory->name }}
-                        </h4>
-                        <p class="text-gray-500 text-xs">
-                            {{ $homeCategory->total_course }} Courses
-                        </p>
                     </div>
                 @endforeach
                 {{-- <div

@@ -193,10 +193,18 @@
                     </li>
                 </ul>
                 <div class="hidden md:block -mt-3 mx-3 group">
-                    <a href="#"
-                        class="text-xl text-gray-500 group-hover:opacity-75 rounded-full h-5 w-5 shadow py-1.5 px-2.5">
-                        <i class="fa-solid fa-user"></i>
-                    </a>
+                    @auth
+                        <a href="{{ route('dashboard') }}"
+                            class="text-xl text-gray-500 group-hover:opacity-75 rounded-full h-5 w-5 shadow py-1.5 px-2.5">
+                            <i class="fa-solid fa-user"></i>
+                        </a>
+                    @else
+                        <a href="{{ route('login') }}" title="Login"
+                            class="text-xl text-gray-500 group-hover:opacity-75 rounded-full h-5 w-5 shadow py-1.5 px-2.5">
+                            <i class="fa-solid fa-sign-in"></i>
+                        </a>
+                    @endauth
+
                 </div>
             </div>
         </div>

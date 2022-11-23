@@ -1,9 +1,7 @@
 <x-guest-layout>
     <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
+        <x-slot name="header">
+            Login
         </x-slot>
 
         <!-- Session Status -->
@@ -51,6 +49,13 @@
                 <x-primary-button class="ml-3">
                     {{ __('Log in') }}
                 </x-primary-button>
+            </div>
+            <div class="text-center mt-4 ">
+                @if (Route::has('register'))
+                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('register') }}">
+                        {{ __('Create new account') }}
+                    </a>
+                @endif
             </div>
         </form>
     </x-auth-card>

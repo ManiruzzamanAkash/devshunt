@@ -33,6 +33,7 @@
                         Parent Category <span class="text-info">(optional)</span>
                     </label>
                     <select name="parent_id" id="parent_id" class="form-control">
+                        <option value="">--Select--</option>
                         {!! $parentCategories !!}
                     </select>
                 </div>

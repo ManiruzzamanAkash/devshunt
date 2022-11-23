@@ -18,7 +18,7 @@ class HomePageController extends Controller
     public function homePage(): Renderable
     {
         return view('index', [
-            'homepageCategories' => $this->category->getHomepageCategories(10)
+            'homepageCategories' => $this->category->getHomepageCategories(8)
         ]);
     }
 }

@@ -152,7 +152,7 @@ class CategoryRepository implements CrudInterface, SlugInterface
 
     public function getHomepageCategories(?int $limit = 20)
     {
-        return Category::join('courses', 'courses.category_id', 'categories.id')
+        return Category::leftJoin('courses', 'courses.category_id', 'categories.id')
             ->select(
                 'categories.id',
                 'categories.name',
@@ -161,6 +161,8 @@ class CategoryRepository implements CrudInterface, SlugInterface
                 'categories.bg_color',
                 DB::raw('(SELECT COUNT(courses.id) FROM courses WHERE courses.category_id = categories.id) as total_course')
             )
+            ->where('categories.enable_homepage', 1)
+            ->orderBy('categories.priority', 'asc')
             ->groupBy('categories.id')
             ->paginate($limit);
     }
