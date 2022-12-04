@@ -9,6 +9,7 @@ use App\Http\Requests\PageUpdateRequest;
 use App\Models\Page;
 use App\Repositories\PageRepository;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
 {
@@ -24,6 +25,10 @@ class PageController extends Controller
      */
     public function index(PageDataTable $dataTable)
     {
+        if (!Auth::user()->hasPermissionTo('page.view')) {
+            abort(403, 'You are not authorized to view pages');
+        }
+
         return $dataTable->render('backend.pages.page.index');
     }
 
@@ -34,6 +39,10 @@ class PageController extends Controller
      */
     public function create(): Renderable
     {
+        if (!Auth::user()->hasPermissionTo('page.create')) {
+            abort(403, 'You are not authorized to create pages');
+        }
+
         return view('backend.pages.page.create');
     }
 
@@ -45,6 +54,10 @@ class PageController extends Controller
      */
     public function store(PageCreateRequest $request)
     {
+        if (!Auth::user()->hasPermissionTo('page.create')) {
+            abort(403, 'You are not authorized to create pages');
+        }
+
         $page = $this->pageRepository->create($request->except('_token'));
 
         if (!empty($page)) {
@@ -63,6 +76,10 @@ class PageController extends Controller
      */
     public function edit(Page $page): Renderable
     {
+        if (!Auth::user()->hasPermissionTo('page.edit')) {
+            abort(403, 'You are not authorized to edit pages');
+        }
+
         return view('backend.pages.page.edit', [
             'page' => $page,
         ]);
@@ -77,6 +94,10 @@ class PageController extends Controller
      */
     public function update(PageUpdateRequest $request, Page $page)
     {
+        if (!Auth::user()->hasPermissionTo('page.edit')) {
+            abort(403, 'You are not authorized to edit pages');
+        }
+
         $pageUpdated = $this->pageRepository->update($request->except('_token', '_method'), $page->id);
 
         if (!empty($pageUpdated)) {
@@ -95,6 +116,10 @@ class PageController extends Controller
      */
     public function destroy(Page $page)
     {
+        if (!Auth::user()->hasPermissionTo('page.delete')) {
+            abort(403, 'You are not authorized to delete pages');
+        }
+
         if ($this->pageRepository->delete($page)) {
             session()->flash('success', 'Page deleted successfully.');
             return redirect()->route('admin.pages.index');

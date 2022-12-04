@@ -187,6 +187,7 @@ return [
          */
         Yajra\DataTables\DataTablesServiceProvider::class,
         Akash\LaravelUniqueSlug\UniqueSlugServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -212,6 +213,8 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'UniqueSlug' => Akash\LaravelUniqueSlug\Facades\UniqueSlug::class,
+        'Role' => Spatie\Permission\Models\Role::class,
+        'Permission' => Spatie\Permission\Models\Permission::class,
     ])->toArray(),
 
 ];
