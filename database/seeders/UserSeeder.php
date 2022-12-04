@@ -16,8 +16,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(100)->create();
-
         // Superadmin user create
         User::create([
             'name' => 'Maniruzzaman Akash',
@@ -30,5 +28,7 @@ class UserSeeder extends Seeder
             'date_of_birth' => '30-11-2000',
             'gender' => 'male',
         ]);
+
+        User::factory(100)->create();
     }
 }

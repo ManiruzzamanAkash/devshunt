@@ -1,3 +1,7 @@
+@php
+    $user = Auth::user();
+@endphp
+
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
@@ -26,36 +30,99 @@
         Modules
     </div>
 
-    <!-- Nav Item - Category -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategory"
-            aria-expanded="true" aria-controls="collapseCategory">
-            <i class="fas fa-fw fa-th"></i>
-            <span>Category</span>
-        </a>
-        <div id="collapseCategory" class="collapse {{ (Route::is('admin.categories.index') || Route::is('admin.categories.create') || Route::is('admin.categories.edit')) ? 'show' : '' }}" aria-labelledby="collapseCategory" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item {{ (Route::is('admin.categories.index') || Route::is('admin.categories.edit')) ? 'active' : '' }}" href="{{ route('admin.categories.index') }}">Manage Categories</a>
-                <a class="collapse-item {{ Route::is('admin.categories.create') ? 'active' : '' }}" href="{{ route('admin.categories.create') }}">New Category</a>
-            </div>
-        </div>
-    </li>
+    @if ($user->can('role.create') ||
+        $user->can('role.view') ||
+        $user->can('role.edit') ||
+        $user->can('role.delete') ||
+        $user->can('user.view') ||
+        $user->can('user.create'))
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRole"
+                aria-expanded="true" aria-controls="collapseRole">
+                <i class="fas fa-fw fa-tasks"></i>
+                <span>
+                    User & roles
+                </span>
+            </a>
+            <div id="collapseRole"
+                class="collapse {{ Route::is('admin.roles.index') || Route::is('admin.roles.create') || Route::is('admin.roles.edit') || Route::is('admin.users.index') || Route::is('admin.users.create') || Route::is('admin.users.edit') ? 'show' : '' }}"
+                aria-labelledby="collapseRole" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    @if ($user->can('role.view'))
+                        <a class="collapse-item {{ Route::is('admin.roles.index') || Route::is('admin.roles.edit') ? 'active' : '' }}"
+                            href="{{ route('admin.roles.index') }}">Manage Roles</a>
+                    @endif
+                    @if ($user->can('role.create'))
+                        <a class="collapse-item {{ Route::is('admin.roles.create') ? 'active' : '' }}"
+                            href="{{ route('admin.roles.create') }}">New Role</a>
+                    @endif
 
-    <!-- Nav Item - Page -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePage"
-            aria-expanded="true" aria-controls="collapsePage">
-            <i class="fas fa-fw fa-file"></i>
-            <span>Page</span>
-        </a>
-        <div id="collapsePage" class="collapse {{ (Route::is('admin.pages.index') || Route::is('admin.pages.create') || Route::is('admin.pages.edit')) ? 'show' : '' }}" aria-labelledby="collapseCategory" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item {{ (Route::is('admin.pages.index') || Route::is('admin.pages.edit')) ? 'active' : '' }}" href="{{ route('admin.pages.index') }}">Manage pages</a>
-                <a class="collapse-item {{ Route::is('admin.pages.create') ? 'active' : '' }}" href="{{ route('admin.pages.create') }}">New Page</a>
-            </div>
-        </div>
-    </li>
+                    @if ($user->can('user.view'))
+                        <a class="collapse-item {{ Route::is('admin.users.index') || Route::is('admin.users.edit') ? 'active' : '' }}"
+                            href="{{ route('admin.users.index') }}">Manage Users</a>
+                    @endif
 
+                    @if ($user->can('user.create'))
+                        <a class="collapse-item {{ Route::is('admin.users.create') ? 'active' : '' }}"
+                            href="{{ route('admin.users.create') }}">New User</a>
+                    @endif
+                </div>
+            </div>
+        </li>
+    @endif
+
+    @if ($user->can('category.create') ||
+        $user->can('category.view') ||
+        $user->can('category.edit') ||
+        $user->can('category.delete'))
+        <!-- Nav Item - Category -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategory"
+                aria-expanded="true" aria-controls="collapseCategory">
+                <i class="fas fa-fw fa-th"></i>
+                <span>Category</span>
+            </a>
+            <div id="collapseCategory"
+                class="collapse {{ Route::is('admin.categories.index') || Route::is('admin.categories.create') || Route::is('admin.categories.edit') ? 'show' : '' }}"
+                aria-labelledby="collapseCategory" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    @if ($user->can('category.view'))
+                        <a class="collapse-item {{ Route::is('admin.categories.index') || Route::is('admin.categories.edit') ? 'active' : '' }}"
+                            href="{{ route('admin.categories.index') }}">Manage Categories</a>
+                    @endif
+                    @if ($user->can('category.create'))
+                        <a class="collapse-item {{ Route::is('admin.categories.create') ? 'active' : '' }}"
+                            href="{{ route('admin.categories.create') }}">New Category</a>
+                    @endif
+                </div>
+            </div>
+        </li>
+    @endif
+
+    @if ($user->can('page.create') || $user->can('page.view') || $user->can('page.edit') || $user->can('page.delete'))
+        <!-- Nav Item - Page -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePage"
+                aria-expanded="true" aria-controls="collapsePage">
+                <i class="fas fa-fw fa-file"></i>
+                <span>Page</span>
+            </a>
+            <div id="collapsePage"
+                class="collapse {{ Route::is('admin.pages.index') || Route::is('admin.pages.create') || Route::is('admin.pages.edit') ? 'show' : '' }}"
+                aria-labelledby="collapseCategory" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    @if ($user->can('page.create'))
+                        <a class="collapse-item {{ Route::is('admin.pages.index') || Route::is('admin.pages.edit') ? 'active' : '' }}"
+                            href="{{ route('admin.pages.index') }}">Manage pages</a>
+                    @endif
+                    @if ($user->can('page.create'))
+                        <a class="collapse-item {{ Route::is('admin.pages.create') ? 'active' : '' }}"
+                            href="{{ route('admin.pages.create') }}">New Page</a>
+                    @endif
+                </div>
+            </div>
+        </li>
+    @endif
 
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
