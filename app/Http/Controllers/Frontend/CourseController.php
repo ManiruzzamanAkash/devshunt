@@ -13,7 +13,7 @@ class CourseController extends Controller
         return view('courses.index');
     }
 
-    public function show($slug): Renderable
+    public function show(string $slug): Renderable
     {
         return view('courses.show');
     }

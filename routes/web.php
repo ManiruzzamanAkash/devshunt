@@ -17,8 +17,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomePageController::class, 'homePage'])->name('index');
-Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
 Route::get('/category/{slug}', [CategoryController::class, 'show'])->name('categories.show');
+
+Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
+Route::get('/courses/{slug}', [CourseController::class, 'show'])->name('courses.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

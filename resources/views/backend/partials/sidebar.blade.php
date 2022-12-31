@@ -99,6 +99,31 @@
         </li>
     @endif
 
+    @if ($user->can('course.create') || $user->can('course.view') || $user->can('course.edit') || $user->can('course.delete'))
+        <!-- Nav Item - Page -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCourse"
+                aria-expanded="true" aria-controls="collapseCourse">
+                <i class="fas fa-fw fa-th"></i>
+                <span>Course</span>
+            </a>
+            <div id="collapseCourse"
+                class="collapse {{ Route::is('admin.courses.index') || Route::is('admin.courses.create') || Route::is('admin.courses.edit') ? 'show' : '' }}"
+                aria-labelledby="collapseCategory" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    @if ($user->can('course.view'))
+                        <a class="collapse-item {{ Route::is('admin.courses.index') || Route::is('admin.courses.edit') ? 'active' : '' }}"
+                            href="{{ route('admin.courses.index') }}">Manage courses</a>
+                    @endif
+                    @if ($user->can('course.create'))
+                        <a class="collapse-item {{ Route::is('admin.courses.create') ? 'active' : '' }}"
+                            href="{{ route('admin.courses.create') }}">New course</a>
+                    @endif
+                </div>
+            </div>
+        </li>
+    @endif
+
     @if ($user->can('page.create') || $user->can('page.view') || $user->can('page.edit') || $user->can('page.delete'))
         <!-- Nav Item - Page -->
         <li class="nav-item">
@@ -111,7 +136,7 @@
                 class="collapse {{ Route::is('admin.pages.index') || Route::is('admin.pages.create') || Route::is('admin.pages.edit') ? 'show' : '' }}"
                 aria-labelledby="collapseCategory" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    @if ($user->can('page.create'))
+                    @if ($user->can('page.view'))
                         <a class="collapse-item {{ Route::is('admin.pages.index') || Route::is('admin.pages.edit') ? 'active' : '' }}"
                             href="{{ route('admin.pages.index') }}">Manage pages</a>
                     @endif

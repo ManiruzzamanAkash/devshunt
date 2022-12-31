@@ -1,0 +1,22 @@
+@extends('backend.layouts.master')
+
+@section('title')
+    Courses
+@endsection
+
+@section('page-right-side')
+    <a href="{{ route('admin.courses.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+            class="fas fa-plus-circle fa-sm text-white-50"></i>
+        New Course
+    </a>
+@endsection
+
+@section('admin-content')
+    <div class="card card-body">
+        {{ $dataTable->table() }}
+    </div>
+@endsection
+
+@section('scripts')
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+@endsection

@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Backend\Auth\NewPasswordController;
 use App\Http\Controllers\Backend\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\PageController;
 use App\Http\Controllers\Backend\RolesController;
@@ -36,4 +37,5 @@ Route::middleware('admin')->group(function () {
     Route::resource('pages', PageController::class);
     Route::resource('roles', RolesController::class);
     Route::resource('users', UsersController::class);
+    Route::resource('courses', CourseController::class);
 });
