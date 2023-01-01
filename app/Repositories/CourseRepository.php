@@ -23,6 +23,15 @@ class CourseRepository implements CrudInterface, SlugInterface
         $query   = Course::orderBy($orderBy, $order)
             ->with('category');
 
+        if (isset($args['limit'])) {
+            $query->limit(intval($args['limit']));
+        }
+
+        // Handle exclude by course ids (arra)
+        if (isset($args['excludes'])) {
+            $query->whereNotIn('id', $args['excludes']);
+        }
+
         if (isset($args['is_query']) && $args['is_query']) {
             return $query;
         }
