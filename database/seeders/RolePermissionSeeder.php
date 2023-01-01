@@ -141,6 +141,7 @@ class RolePermissionSeeder extends Seeder
             ],
         ];
 
+        Role::create(['name' => 'subscriber']);
         $role = Role::create(['name' => 'superadmin']);
 
         // Create and Assign Permissions

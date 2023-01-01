@@ -119,13 +119,17 @@
                         facere corporis dolorem beatae? Dolore pariatur illo odio nulla atque quibusdam dicta ut
                         tempore, suscipit est.
                     </p>
-                    <p class="mt-4 relative">
-                        <input type="email" placeholder="Your e-mail"
-                            class="w-full p-3 pl-5 bg-white rounded-full text-gray-700 placeholder:text-gray-700">
-                        <span class="absolute top-1 right-2 bg-red-600 px-5 p-2 rounded-full uppercase">
-                            Subscribe
-                        </span>
-                    </p>
+
+                    <form id="subscriber-form" method="post">
+                        <p class="mt-4 relative">
+                            <input type="email" id="subscriber_email" placeholder="Your e-mail"
+                                class="w-full p-3 pl-5 bg-white rounded-full text-gray-700 placeholder:text-gray-700">
+                            <button class="absolute top-1 right-2 bg-red-600 px-5 p-2 rounded-full uppercase">
+                                Subscribe
+                            </button>
+                        </p>
+                        <p id="subscription-message" class="text-success"></p>
+                    </form>
                 </div>
 
             </div>
