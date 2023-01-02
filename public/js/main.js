@@ -130,7 +130,7 @@ $(document).ready(function () {
 
         $.ajax({
                 method: "POST",
-                url: "http://localhost:8000/api/subscribe",
+                url: `${apiBaseUrl}/subscribe`,
                 data: {
                     email
                 }

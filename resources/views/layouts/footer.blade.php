@@ -147,3 +147,8 @@
     </div>
 </footer>
 <!-- End Footer Section -->
+
+<script>
+    const baseUrl = "{{ url('/') }}";
+    const apiBaseUrl = `${baseUrl}/api`;
+</script>

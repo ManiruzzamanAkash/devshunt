@@ -47,7 +47,7 @@ class CourseCreateRequest extends FormRequest
             'meta_keywords'        => 'nullable|string|max: 200',
             'external_enroll_link' => 'nullable|url',
             'start_date'           => 'nullable|date',
-            'end_date'             => 'nullable|date|gt:start_date',
+            'end_date'             => 'nullable|date',
         ];
     }
 }
