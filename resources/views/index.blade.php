@@ -188,7 +188,7 @@
             <div class="flex justify-between items-center">
                 <h2 class="font-medium my-5">Popular Courses</h2>
                 <div class="">
-                    <a href="{{ route('courses.index') }}?type=popular"
+                    <a href="{{ route('courses.index') }}?order_by=popular"
                         class="transition bg-white py-2 px-6 text-sm border rounded hover:bg-red-500 text-slate-900 hover:text-white">
                         View More
                     </a>
@@ -213,7 +213,7 @@
             <div class="flex justify-between items-center">
                 <h2 class="font-medium my-5">New Courses</h2>
                 <div>
-                    <a href="{{ route('courses.index') }}?type=latest"
+                    <a href="{{ route('courses.index') }}?order_by=latest"
                         class="transition bg-white py-2 px-6 text-sm border rounded hover:bg-red-500 text-slate-900 hover:text-white">
                         View More
                     </a>

@@ -16,11 +16,11 @@ class CourseRepository implements CrudInterface, SlugInterface
     /**
      * Get categories by filtering args.
      */
-    public function get(array $args = []): \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Builder
+    public function get(array $args = []): \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Builder|\Illuminate\Pagination\Paginator
     {
         $orderBy = empty($args['order_by']) ? 'id' : $args['order_by']; // column name
         $order   = empty($args['order']) ? 'desc' : $args['order']; // asc, desc
-        $query   = Course::orderBy($orderBy, $order)
+        $query   = Course::orderBy($this->processOrderBy($orderBy), $order)
             ->with('category');
 
         if (isset($args['limit'])) {
@@ -32,11 +32,58 @@ class CourseRepository implements CrudInterface, SlugInterface
             $query->whereNotIn('id', $args['excludes']);
         }
 
+        // Searching
+        if (isset($args['search'])) {
+            $query->where(function($query) use ($args) {
+                $search = '%' . $args['search'] . '%';
+                $query->where('title', 'like', $search)
+                      ->orWhere('description', 'like', $search);
+            });
+        }
+
+        // Min Price
+        if (isset($args['min_price'])) {
+            $minPrice = floatval($args['min_price']);
+            if ($minPrice !== 0) {
+                $query->where('price', '>=', $minPrice)
+                    ->where('is_free', 0);
+            }
+        }
+
+        // Max Price
+        if (isset($args['max_price'])) {
+            $query->where('price', '<=', floatval($args['max_price']));
+        }
+
+        // Set pagination if provided
+        if (isset($args['paginated']) && $args['paginated']) {
+            $paginationType = $args['pagination_type'] ?? '';
+
+            if ($paginationType === 'simple') {
+                return $query->simplePaginate(intval($args['paginated']));
+            } else {
+                return $query->paginate(intval($args['paginated']));
+            }
+        }
+
         if (isset($args['is_query']) && $args['is_query']) {
             return $query;
         }
 
         return $query->get();
+    }
+
+    private function processOrderBy(string $orderBy) {
+        switch ($orderBy) {
+            case 'popular':
+                return 'total_view';
+
+            case 'latest':
+                return 'id';
+
+            default:
+                return $orderBy;
+        }
     }
 
     public function show(int $id): Course|null

@@ -11,7 +11,7 @@ interface CrudInterface
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function get(array $args = []): \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Builder;
+    public function get(array $args = []): \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Builder|\Illuminate\Pagination\Paginator;
 
     /**
      * Show eloquent model resource.
