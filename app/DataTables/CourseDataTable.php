@@ -50,6 +50,11 @@ class CourseDataTable extends DataTable
                 ';
                 return $html;
             })
+            ->editColumn('lectures', function (Course $course) {
+                $html = '<a class="btn btn-link text-primary" target="_blank" href="' . route('admin.lessons.index', $course->id) . '"><i class="fa fa-eye"></i></a>';
+
+                return $html;
+            })
             ->editColumn('name', function (Course $course) {
                 $html = $course->title;
                 $html .= '<br /> <a class="btn btn-link text-primary" target="_blank" href="' . route('courses.show', $course->slug) . '">View</a>';
@@ -90,7 +95,7 @@ class CourseDataTable extends DataTable
             ->editColumn('updated_at', function (Course $course) {
                 return $course->created_at->diffForHumans();
             })
-            ->rawColumns(['title', 'action', 'category_id', 'banner', 'price', 'status']);
+            ->rawColumns(['title', 'action', 'lectures', 'category_id', 'banner', 'price', 'status']);
     }
 
     public function query(Course $model): QueryBuilder
@@ -129,6 +134,11 @@ class CourseDataTable extends DataTable
             Column::make('total_view')->title('Total View'),
             Column::make('total_enrolled')->title('Total enrolled'),
             Column::make('updated_at')->title('Last updated'),
+            Column::make('lectures')
+                ->title('Lectures')
+                ->searchable(false)
+                ->orderable(false)
+                ->printable(false),
             Column::make('action')
                 ->title('Action')
                 ->searchable(false)
