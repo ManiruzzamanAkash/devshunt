@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\CategoryRepository;
+use App\Repositories\CourseEnrollRepository;
 use App\Repositories\CourseRepository;
 use Exception;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
@@ -19,9 +21,11 @@ class CourseController extends Controller
     public function __construct(
         private CategoryRepository $category,
         private CourseRepository $course,
+        private CourseEnrollRepository $enroll,
     )
     {
         $this->category = $category;
+        $this->enroll = $enroll;
         $this->course = $course;
         $this->orderBy = 'id';
         $this->order = 'desc';
@@ -65,6 +69,12 @@ class CourseController extends Controller
             abort(404, 'Course does not found !');
         }
 
-        return view('courses.show', compact('course'));
+        $isEnrolled = false;
+
+        if (Auth::check()) {
+            $isEnrolled = $this->enroll->checkUserAlreadyEnrolled(Auth::id(), $course->id);
+        }
+
+        return view('courses.show', compact('course', 'isEnrolled'));
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Frontend\CategoryController;
 use App\Http\Controllers\Frontend\CourseController;
+use App\Http\Controllers\Frontend\CourseEnrollController;
 use App\Http\Controllers\Frontend\HomePageController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,10 @@ Route::group(['prefix' => 'courses', 'as' => 'courses.'], function() {
     Route::get('', [CourseController::class, 'index'])->name('index');
     Route::get('/{slug}', [CourseController::class, 'show'])->name('show');
     Route::get('/{course_slug}/{lesson_slug}', [CourseLessonController::class, 'show'])->name('lessons.show');
+
+    Route::middleware('auth')->group(function () {
+        Route::post('/enroll-course/{slug}/confirm', [CourseEnrollController::class, 'store'])->name('enroll');
+    });
 });
 
 Route::get('/dashboard', function () {
