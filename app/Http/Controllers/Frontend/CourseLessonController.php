@@ -10,9 +10,8 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class CourseController extends Controller
+class CourseLessonController extends Controller
 {
-
     private string $orderBy;
     private string $order;
 

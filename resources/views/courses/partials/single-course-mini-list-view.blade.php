@@ -1,4 +1,4 @@
-<div class="course-item md:basis-[31.4%] group">
+<div class="course-item md:basis-[31.4%] group cursor-pointer" onclick="location.href='{{ route('courses.show', $course->slug) }}'">
     <div
         class="border border-gray-100 shadow-sm rounded transition hover:shadow-md group-hover:opacity-75">
         <div class="max-h-[150px] overflow-y-hidden">

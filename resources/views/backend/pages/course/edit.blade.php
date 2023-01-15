@@ -29,6 +29,7 @@
                     </label>
                     <input type="text" class="form-control" name="title" id="title" placeholder="Enter course name"
                         required value="{{ $course->title }}">
+                        <input type="hidden" name="slug" value="{{ $course->slug }}">
                 </div>
                 <div class="col-12 col-md-3 mb-3">
                     <label for="category_id" class="form-label">

@@ -1,4 +1,4 @@
-<div class="course-item group">
+<div class="course-item group cursor-pointer" onclick="location.href='{{ route('courses.show', $course->slug) }}'">
     <div class="border border-gray-100 shadow-sm rounded mr-3 transition hover:shadow-md group-hover:opacity-75">
         <img src="{{ Storage::url($course->banner) }}" alt="" class="w-full rounded rounded-b-none">
         <div class="mt-3 p-3">

@@ -16,6 +16,9 @@ module.exports = {
             },
             container: {
                 padding: "2rem"
+            },
+            colors: {
+                dark: '#00103F'
             }
         },
     },

@@ -50,4 +50,8 @@ class Course extends Model
     {
         return $this->hasMany(Payment::class);
     }
+
+    public function createdBy() {
+        return $this->belongsTo(User::class, 'created_by');
+    }
 }

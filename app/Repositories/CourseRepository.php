@@ -163,9 +163,11 @@ class CourseRepository implements CrudInterface, SlugInterface
         }
 
         if (isset($data['is_free'])) {
+            $data['is_free'] = 1;
             $data['price'] = 0;
             $data['offer_price'] = 0;
         } else {
+            $data['is_free'] = 0;
             $data['price'] = floatval($data['price']);
             $data['offer_price'] = floatval($data['offer_price']);
         }

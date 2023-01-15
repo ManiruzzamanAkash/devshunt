@@ -25,8 +25,8 @@ class CourseCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'                => 'required|max: 100',
-            'description'          => 'nullable|string|min: 3|max: 1000',
+            'title'                => 'required|max:100',
+            'description'          => 'nullable|string|min:3',
             'category_id'          => 'required|integer',
             'priority'             => 'nullable|integer',
             'banner'               => 'nullable|image|max: 5000',
